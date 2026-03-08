@@ -14,10 +14,10 @@ import os
 import tempfile
 from pathlib import Path
 
-from codecontext.core.parser import CodebaseParser
-from codecontext.search.vectorstore import MongoDBVectorStore
-from codecontext.agents.base import TestGenerationAgent
-from codecontext.agents.tools import initialize_tools
+from codecoverage.core.parser import CodebaseParser
+from codecoverage.search.vectorstore import MongoDBVectorStore
+from codecoverage.agents.base import TestGenerationAgent
+from codecoverage.agents.tools import initialize_tools
 
 # Skip all tests if credentials not available
 pytestmark = pytest.mark.skipif(
@@ -260,7 +260,7 @@ class TestFullWorkflow:
         # 2. Connect to vector store
         store = MongoDBVectorStore(
             connection_string=os.getenv("MONGODB_URI"),
-            database_name="codecontext_integration_test",
+            database_name="codecoverage_integration_test",
             collection_name="workflow_test",
             api_key=os.getenv("OPENAI_API_KEY")
         )
@@ -306,7 +306,7 @@ class TestFullWorkflow:
 
         store = MongoDBVectorStore(
             connection_string=os.getenv("MONGODB_URI"),
-            database_name="codecontext_integration_test",
+            database_name="codecoverage_integration_test",
             collection_name="agent_test",
             api_key=os.getenv("OPENAI_API_KEY")
         )
@@ -365,7 +365,7 @@ class TestFullWorkflow:
         # Index
         store = MongoDBVectorStore(
             connection_string=os.getenv("MONGODB_URI"),
-            database_name="codecontext_integration_test",
+            database_name="codecoverage_integration_test",
             collection_name="e2e_test",
             api_key=os.getenv("OPENAI_API_KEY")
         )

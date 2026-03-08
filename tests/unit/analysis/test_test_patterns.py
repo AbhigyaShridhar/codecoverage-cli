@@ -4,8 +4,8 @@
 Tests for test pattern detector
 """
 
-from codecontext.core.parser import CodebaseParser
-from codecontext.analysis.test_patterns import (
+from codecoverage.core.parser import CodebaseParser
+from codecoverage.analysis.test_patterns import (
     detect_test_patterns,
     find_test_files,
     detect_framework,

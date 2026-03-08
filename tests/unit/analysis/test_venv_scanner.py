@@ -6,8 +6,8 @@ Tests for virtual environment scanner
 
 from pathlib import Path
 
-from codecontext.analysis.venv_scanner import VirtualEnvScanner, PackageInfo
-from codecontext.analysis.package_cache import PackageCache
+from codecoverage.analysis.venv_scanner import VirtualEnvScanner, PackageInfo
+from codecoverage.analysis.package_cache import PackageCache
 
 
 class TestPackageInfo:

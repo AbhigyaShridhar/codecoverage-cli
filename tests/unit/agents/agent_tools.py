@@ -6,9 +6,9 @@ import pytest
 import os
 from pathlib import Path
 
-from codecontext.core.parser import CodebaseParser
-from codecontext.search.vectorstore import MongoDBVectorStore
-from codecontext.agents.tools import (
+from codecoverage.core.parser import CodebaseParser
+from codecoverage.search.vectorstore import MongoDBVectorStore
+from codecoverage.agents.tools import (
     initialize_tools,
     search_codebase,
     analyze_project_patterns,
@@ -93,7 +93,7 @@ class TestToolInitialization:
         # Create vector store
         store = MongoDBVectorStore(
             connection_string=os.getenv("MONGODB_URI"),
-            database_name="codecontext_test",
+            database_name="codecoverage_test",
             collection_name="tools_test",
             api_key=os.getenv("OPENAI_API_KEY")
         )
@@ -138,7 +138,7 @@ class TestSearchTools:
 
         store = MongoDBVectorStore(
             connection_string=os.getenv("MONGODB_URI"),
-            database_name="codecontext_test",
+            database_name="codecoverage_test",
             collection_name="search_test",
             api_key=os.getenv("OPENAI_API_KEY")
         )
@@ -196,7 +196,7 @@ class TestAnalysisTools:
         
         store = MongoDBVectorStore(
             connection_string=os.getenv("MONGODB_URI"),
-            database_name="codecontext_test",
+            database_name="codecoverage_test",
             collection_name="deps_test",
             api_key=os.getenv("OPENAI_API_KEY")
         )
@@ -234,7 +234,7 @@ class TestAnalysisTools:
         
         store = MongoDBVectorStore(
             connection_string=os.getenv("MONGODB_URI"),
-            database_name="codecontext_test",
+            database_name="codecoverage_test",
             collection_name="stats_test",
             api_key=os.getenv("OPENAI_API_KEY")
         )

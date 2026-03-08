@@ -5,7 +5,7 @@ Tests for dependency parser
 """
 
 
-from codecontext.analysis.dependencies import (
+from codecoverage.analysis.dependencies import (
     parse_dependencies,
     extract_package_name,
     DependencyInfo,

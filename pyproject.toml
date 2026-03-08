@@ -3,9 +3,9 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "codecontext-cli"
+name = "codecoverage-cli"
 version = "0.1.0"
-description = "AI-powered code knowledge base and test generation with agentic RAG using LangGraph"
+description = "AI-powered test generation and documentation for Python codebases"
 readme = "README.md"
 requires-python = ">=3.10"
 
@@ -42,7 +42,6 @@ classifiers = [
 dependencies = [
     "click>=8.1.0",           # CLI framework
     "rich>=13.0.0",           # Beautiful terminal output
-    "questionary>=2.0.0",     # Interactive prompts
 
     "pydantic>=2.0.0",        # Data validation using Python type hints
     "pydantic-settings>=2.0.0", # Environment variable loading
@@ -51,8 +50,6 @@ dependencies = [
     "astroid>=3.0.0",         # Advanced AST analysis
     "radon>=6.0.0",           # Code complexity metrics
     "gitignore-parser>=0.1.0", # Parse .gitignore files
-
-    "rank-bm25>=0.2.2",       # BM25 ranking algorithm
 
     "anthropic>=0.18.0",      # Claude API client (official)
     "langgraph>=0.0.40",      # Agent workflow orchestration
@@ -63,11 +60,6 @@ dependencies = [
 
     "tenacity>=8.2.0",        # Retry logic with exponential backoff
     "jinja2>=3.1.0",          # Template engine for prompts
-
-    # Vector Search
-    "pymongo>=4.6.0",         # MongoDB driver with vector search
-    "openai>=1.0.0",          # Embeddings API
-    "certifi>=2023.0.0",      # SSL certificates for MongoDB
 
     "tomli>=2.0.0; python_version < '3.11'",  # TOML parsing for older Python
 ]
@@ -85,29 +77,26 @@ dev = [
     "ipdb>=0.13.0",           # IPython debugger
 ]
 
-vector = [
-    "pymongo>=4.6.0",         # MongoDB driver
-    "chromadb>=0.4.0",        # Local vector database
-    "openai>=1.0.0",          # OpenAI embeddings API
+openai = [
+    "langchain-openai>=0.1.0",  # OpenAI provider support
 ]
 
 all = [
-    "codecontext[dev]",
-    "codecontext[vector]",
+    "codecoverage[dev,openai]",
 ]
 
 [project.scripts]
-codecontext = "codecontext.cli.main:cli"
+codecoverage = "codecoverage.cli.main:cli"
 
 [project.urls]
-Homepage = "https://github.com/AbhigyaShridhar/codecontext-cli/"
-Documentation = "https://codecontextcli.readthedocs.io"
-Repository = "https://github.com/AbhigyaShridhar/codecontext-cli/"
-Issues = "https://github.com/AbhigyaShridhar/codecontext-cli/issues"
-Changelog = "https://github.com/AbhigyaShridhar/codecontext-cli/releases"
+Homepage = "https://github.com/AbhigyaShridhar/codecoverage-cli/"
+Documentation = "https://github.com/AbhigyaShridhar/codecoverage-cli#readme"
+Repository = "https://github.com/AbhigyaShridhar/codecoverage-cli/"
+Issues = "https://github.com/AbhigyaShridhar/codecoverage-cli/issues"
+Changelog = "https://github.com/AbhigyaShridhar/codecoverage-cli/releases"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/codecontext"]
+packages = ["src/codecoverage"]
 
 [tool.black]
 line-length = 88
@@ -161,14 +150,12 @@ python_functions = ["test_*"]
 addopts = [
     "--strict-markers",
     "--strict-config",
-    "--cov=codecontext",
-    "--cov-report=term-missing",
-    "--cov-report=html",
 ]
+# Run with coverage:  pytest --cov=codecoverage --cov-report=term-missing
 
 [tool.coverage.run]
 branch = true
-source = ["codecontext"]
+source = ["codecoverage"]
 omit = [
     "*/tests/*",
     "*/__main__.py",

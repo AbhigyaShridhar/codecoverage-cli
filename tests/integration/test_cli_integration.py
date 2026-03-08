@@ -10,7 +10,7 @@ import tempfile
 from pathlib import Path
 from click.testing import CliRunner
 
-from codecontext.cli.main import cli
+from codecoverage.cli.main import cli
 
 pytestmark = pytest.mark.skipif(
     not os.getenv("MONGODB_URI") or not os.getenv("OPENAI_API_KEY") or not os.getenv("ANTHROPIC_API_KEY"),
@@ -42,7 +42,7 @@ class TestCLIIntegration:
     """Test CLI commands"""
 
     def test_init_command(self, sample_project):
-        """Test codecontext init"""
+        """Test codecoverage init"""
         runner = CliRunner()
 
         with runner.isolated_filesystem(temp_dir=sample_project):
@@ -55,25 +55,25 @@ class TestCLIIntegration:
             assert "Configuration saved" in result.output
 
             # Check config file created
-            config_file = sample_project / ".codecontext.toml"
+            config_file = sample_project / ".codecoverage.toml"
             assert config_file.exists()
 
             config_content = config_file.read_text()
-            assert "codecontext" in config_content.lower()
+            assert "codecoverage" in config_content.lower()
 
     def test_index_command(self, sample_project):
-        """Test codecontext index"""
+        """Test codecoverage index"""
         runner = CliRunner()
 
         # Create config first
-        config_file = sample_project / ".codecontext.toml"
+        config_file = sample_project / ".codecoverage.toml"
         config_file.write_text(f"""
 [parsing]
 ignore_patterns = ["__pycache__"]
 
 [vector]
 connection_string = "{os.getenv('MONGODB_URI')}"
-database = "codecontext_cli_test"
+database = "codecoverage_cli_test"
 collection = "test"
 
 [llm]
@@ -90,18 +90,18 @@ anthropic_api_key = "{os.getenv('ANTHROPIC_API_KEY')}"
         assert "Indexing complete" in result.output
 
     def test_ask_command(self, sample_project):
-        """Test codecontext ask"""
+        """Test codecoverage ask"""
         runner = CliRunner()
 
         # Setup (create config and index)
-        config_file = sample_project / ".codecontext.toml"
+        config_file = sample_project / ".codecoverage.toml"
         config_file.write_text(f"""
 [parsing]
 ignore_patterns = []
 
 [vector]
 connection_string = "{os.getenv('MONGODB_URI')}"
-database = "codecontext_cli_test"
+database = "codecoverage_cli_test"
 collection = "ask_test"
 
 [llm]
